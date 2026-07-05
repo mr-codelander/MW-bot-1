@@ -15,7 +15,7 @@ bot = Robot(token=TOKEN)
 import os
 import psycopg2
 
-conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+conn = psycopg2.connect(os.getenv("postgresql://postgres:CphfDwjttjTYnGOSPpiDvbYCCWOmpCNK@postgres.railway.internal:5432/railway"))
 cur = conn.cursor()
 
 cur.execute("""
