@@ -12,10 +12,13 @@ TOKEN = "IAJCH0LOGXHYYYLHGGHOKTJQBVJCFPJBDCNZYTBAWYXKTFXWHBTYWTJPAVXDYFRW"
 bot = Robot(token=TOKEN)
 
 
-import os
 import psycopg2
+import os
 
-conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+db_url = os.getenv("DATABASE_URL")
+print(repr(db_url))
+
+conn = psycopg2.connect(db_url)
 cur = conn.cursor()
 
 cur.execute("""
