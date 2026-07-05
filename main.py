@@ -11,8 +11,48 @@ TOKEN = "IAJCH0LOGXHYYYLHGGHOKTJQBVJCFPJBDCNZYTBAWYXKTFXWHBTYWTJPAVXDYFRW"
 # ========== ایجاد ربات ==========
 bot = Robot(token=TOKEN)
 
+
+import os
+import psycopg2
+
+conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+cur = conn.cursor()
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS ACTIVE_GROUPS (
+    guid TEXT PRIMARY KEY
+)
+""")
+conn.commit()
+def save_active_groups(ACTIVE_GROUPS):
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS ACTIVE_GROUPS (
+            guid TEXT PRIMARY KEY,
+            active BOOLEAN NOT NULL
+        )
+    """)
+
+    cur.execute("DELETE FROM ACTIVE_GROUPS")
+
+    for guid, active in ACTIVE_GROUPS.items():
+        cur.execute(
+            "INSERT INTO ACTIVE_GROUPS (guid, active) VALUES (%s, %s)",
+            (guid, active)
+        )
+
+    conn.commit()
+
+
+def load_active_groups():
+    cur.execute("SELECT guid, active FROM ACTIVE_GROUPS")
+    rows = cur.fetchall()
+
+    return {guid: active for guid, active in rows}
 # ========== متغیرهای سراسری ==========
-ACTIVE_GROUPS = {}
+try:
+    ACTIVE_GROUPS = load_active_groups()
+except:
+    ACTIVE_GROUPS = {}
 MESSAGES_HISTORY = {}
 
 cmds = """دستورات
@@ -648,6 +688,7 @@ async def start_handler(bot: Robot, message: Message):
         await message.reply(JOIN_CONFIRM)
     else:
         ACTIVE_GROUPS[chat_id] = True
+        save_active_groups(ACTIVE_GROUPS)
         await message.reply(WELCOME_MESSAGE)
     
 @bot.on_message(commands=["cmds"])
