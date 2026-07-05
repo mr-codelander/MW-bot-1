@@ -5,7 +5,6 @@ import random
 import jdatetime
 from rubka import Robot
 from rubka.context import Message
-from zoneinfo import ZoneInfo
 
 TOKEN = "IAJCH0LOGXHYYYLHGGHOKTJQBVJCFPJBDCNZYTBAWYXKTFXWHBTYWTJPAVXDYFRW"
 
@@ -620,11 +619,11 @@ def translate_text(text):
 
 def get_datetime():
     """دریافت تاریخ"""
-    now = datetime.datetime.now(ZoneInfo("Asia/Tehran"))
-    jnow = jdatetime.datetime.fromgregorian(datetime=now)
+    now = datetime.datetime.now()
+    jnow = jdatetime.datetime.now()
     
-    g = f"{now.year}/{now.month:02d}/{now.day:02d} - {now.hour:02d}:{now.minute:02d}"
-    p = f"{jnow.year}/{jnow.month:02d}/{jnow.day:02d} - {jnow.hour:02d}:{jnow.minute:02d}"
+    g = f"{now.year}/{now.month:02d}/{now.day:02d}"
+    p = f"{jnow.year}/{jnow.month:02d}/{jnow.day:02d}"
     
     return f"📅 میلادی: {g}\n🕒 شمسی: {p}"
 
@@ -713,10 +712,11 @@ async def message_handler(bot: Robot, message: Message):
             else:
                 await message.reply("متنی برای ترجمه وارد نشده!\nمثال: ترجمه Hello")
             return
+            
         if "/smaads " in text_lower:
             tads = text_lower.replace("/smaads ", "")
             for i in ACTIVE_GROUPS:
-                await bot.send_message(i, tads)
+                await bot.send_message(chat_id=i, text=tads)
         # تاریخ
         if text_lower == "تاریخ":
             await message.reply(get_datetime())
