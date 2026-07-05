@@ -564,7 +564,7 @@ WELCOME_MESSAGE = """سلام! 👋
 و بعد مجدد /start را بزنید ❤️"""
 
 JOIN_CONFIRM = """✅ ربات فعاله!"""
-
+help = "برای فعال سازی ربات در گروه:\n1. کافیه روی پروفایل ربات کلیک کنید.\n2. روی افزودن به گروه یا کانال بزنید.\n3. گروه مد نظرتون رو انتخاب کنید. \n4. سپس ربات رو ادمین کامل گروه کنید و همه دسترسی ها رو بدید.\n5. کافیه کامند /start رو ارسال کنید تا ربات در گروه فعال بشه"
 LINK_WARN = "💢 ارسال لینک ممنوع است! ✋⛔️"
 BIO_WARN = "💢 ارسال بیوچک ممنوع است! ✋⛔️"
 FOSH_WARN = "💢 ادب رو رعایت کن!!\nفحاشی در این گروه ممنوع است! ✋⛔️"
@@ -654,6 +654,11 @@ async def start_handler(bot: Robot, message: Message):
 async def cmds_handler(bot: Robot, message: Message):
     await message.reply(cmds)
     
+@bot.on_message(commands=["help"])
+async def cmds_handler(bot: Robot, message: Message):
+    await message.reply(help)
+    
+@bot.on_message()    
 async def message_handler(bot: Robot, message: Message):
     """مدیریت پیام‌ها"""
     try:
