@@ -65,7 +65,736 @@ cmds = """دستورات
 ۴. جرعت : دریافت سوال جرعت
 ۵. ترجمه {متن} : ترجمه دو طرفه (فارسی↔انگلیسی)
 """
+QUESTIONS = [
+    {
+        "question": "پایتخت ایران کدام شهر است؟",
+        "options": ["اصفهان", "تهران", "تبریز", "شیراز"],
+        "answer": 1,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بلندترین کوه جهان چیست؟",
+        "options": ["اورست", "دماوند", "کی۲", "آلپ"],
+        "answer": 0,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بزرگ‌ترین اقیانوس جهان کدام است؟",
+        "options": ["اطلس", "هند", "آرام", "منجمد شمالی"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "سیاره سرخ کدام است؟",
+        "options": ["زمین", "مشتری", "مریخ", "زهره"],
+        "answer": 2,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "فرمول شیمیایی آب چیست؟",
+        "options": ["CO2", "NaCl", "H2O", "O2"],
+        "answer": 2,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "نماد شیمیایی طلا چیست؟",
+        "options": ["Ag", "Au", "Fe", "Pt"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام سیاره بزرگ‌ترین سیاره منظومه شمسی است؟",
+        "options": ["زحل", "زمین", "مشتری", "اورانوس"],
+        "answer": 2,
+        "category": "نجوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین انسان روی ماه چه کسی بود؟",
+        "options": ["نیل آرمسترانگ", "باز آلدرین", "یوری گاگارین", "مایکل کالینز"],
+        "answer": 0,
+        "category": "تاریخ",
+        "difficulty": "easy"
+    },
+    {
+        "question": "مخترع لامپ رشته‌ای چه کسی بود؟",
+        "options": ["ادیسون", "نیوتن", "تسلا", "گراهام بل"],
+        "answer": 0,
+        "category": "تاریخ",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کوروش بزرگ بنیان‌گذار کدام سلسله بود؟",
+        "options": ["اشکانیان", "هخامنشیان", "ساسانیان", "صفویان"],
+        "answer": 1,
+        "category": "تاریخ",
+        "difficulty": "easy"
+    },
+    {
+        "question": "جام جهانی فوتبال هر چند سال یک‌بار برگزار می‌شود؟",
+        "options": ["۲", "۳", "۴", "۵"],
+        "answer": 2,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "هر تیم فوتبال چند بازیکن در زمین دارد؟",
+        "options": ["۹", "۱۰", "۱۱", "۱۲"],
+        "answer": 2,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام ورزش با راکت انجام می‌شود؟",
+        "options": ["شنا", "تنیس", "والیبال", "کشتی"],
+        "answer": 1,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "قرآن بر کدام پیامبر نازل شد؟",
+        "options": ["حضرت موسی", "حضرت عیسی", "حضرت محمد (ص)", "حضرت ابراهیم"],
+        "answer": 2,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "نمازهای واجب روزانه چند رکعت هستند؟",
+        "options": ["۱۵", "۱۶", "۱۷", "۱۸"],
+        "answer": 2,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین امام شیعیان چه کسی است؟",
+        "options": ["امام حسن", "امام علی", "امام حسین", "امام سجاد"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "عدد π تقریباً برابر چند است؟",
+        "options": ["۲٫۱۴", "۳٫۱۴", "۴٫۱۴", "۳٫۴۱"],
+        "answer": 1,
+        "category": "ریاضی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "حاصل ۱۲ × ۸ چند است؟",
+        "options": ["۹۴", "۹۶", "۹۸", "۱۰۲"],
+        "answer": 1,
+        "category": "ریاضی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام زبان برنامه‌نویسی توسط Guido van Rossum ساخته شد؟",
+        "options": ["Java", "Python", "C#", "Go"],
+        "answer": 1,
+        "category": "کامپیوتر",
+        "difficulty": "easy"
+    },
+    {
+        "question": "CPU مخفف چیست؟",
+        "options": [
+            "Central Processing Unit",
+            "Computer Power Unit",
+            "Core Program Unit",
+            "Central Program Utility"
+        ],
+        "answer": 0,
+        "category": "کامپیوتر",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام حیوان به سلطان جنگل معروف است؟",
+        "options": ["ببر", "شیر", "پلنگ", "گرگ"],
+        "answer": 1,
+        "category": "حیات وحش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "سریع‌ترین حیوان خشکی چیست؟",
+        "options": ["شیر", "ببر", "یوزپلنگ", "پلنگ"],
+        "answer": 2,
+        "category": "حیات وحش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "پایتخت ژاپن چیست؟",
+        "options": ["اوساکا", "توکیو", "کیوتو", "ناگویا"],
+        "answer": 1,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "پایتخت فرانسه چیست؟",
+        "options": ["رم", "برلین", "پاریس", "مادرید"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "سازنده بازی Minecraft کدام شرکت است؟",
+        "options": ["Valve", "Mojang", "Epic Games", "Rockstar"],
+        "answer": 1,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام بلاک در ماینکرفت با آب از بین نمی‌رود؟",
+        "options": ["مشعل", "ردستون", "ابسیدین", "گل"],
+        "answer": 2,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کریپر در ماینکرفت چه کاری انجام می‌دهد؟",
+        "options": ["پرواز می‌کند", "منفجر می‌شود", "تیراندازی می‌کند", "شنا می‌کند"],
+        "answer": 1,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام رنگ از ترکیب آبی و زرد به دست می‌آید؟",
+        "options": ["بنفش", "سبز", "نارنجی", "صورتی"],
+        "answer": 1,
+        "category": "عمومی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بزرگ‌ترین پستاندار جهان چیست؟",
+        "options": ["فیل", "نهنگ آبی", "زرافه", "کرگدن"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام قاره کشور ایران در آن قرار دارد؟",
+        "options": ["اروپا", "آفریقا", "آسیا", "اقیانوسیه"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    }
+]
+QUESTIONS += [
+    {
+        "question": "اولین عنصر جدول تناوبی چیست؟",
+        "options": ["اکسیژن", "هیدروژن", "هلیوم", "کربن"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "واحد اندازه‌گیری نیرو چیست؟",
+        "options": ["ژول", "وات", "نیوتن", "ولت"],
+        "answer": 2,
+        "category": "فیزیک",
+        "difficulty": "medium"
+    },
+    {
+        "question": "نویسنده شاهنامه چه کسی است؟",
+        "options": ["سعدی", "حافظ", "فردوسی", "مولوی"],
+        "answer": 2,
+        "category": "ادبیات",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام شاعر به لسان‌الغیب مشهور است؟",
+        "options": ["سعدی", "فردوسی", "حافظ", "خیام"],
+        "answer": 2,
+        "category": "ادبیات",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین حرف الفبای یونانی چیست؟",
+        "options": ["بتا", "آلفا", "گاما", "دلتا"],
+        "answer": 1,
+        "category": "عمومی",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام سیاره به سیاره آبی معروف است؟",
+        "options": ["زمین", "مریخ", "نپتون", "زهره"],
+        "answer": 0,
+        "category": "نجوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام کشور بیشترین جمعیت جهان را دارد؟",
+        "options": ["هند", "چین", "آمریکا", "اندونزی"],
+        "answer": 0,
+        "category": "جغرافیا",
+        "difficulty": "medium"
+    },
+    {
+        "question": "در شطرنج هر طرف بازی در ابتدا چند مهره دارد؟",
+        "options": ["14", "15", "16", "17"],
+        "answer": 2,
+        "category": "ورزش",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام حیوان بزرگ‌ترین گربه‌سان جهان است؟",
+        "options": ["شیر", "پلنگ", "ببر", "یوزپلنگ"],
+        "answer": 2,
+        "category": "حیات وحش",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام پیامبر لقب کلیم‌الله دارد؟",
+        "options": ["حضرت ابراهیم", "حضرت موسی", "حضرت عیسی", "حضرت نوح"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام مرورگر توسط گوگل توسعه داده شده است؟",
+        "options": ["Firefox", "Edge", "Chrome", "Opera"],
+        "answer": 2,
+        "category": "کامپیوتر",
+        "difficulty": "easy"
+    },
+    {
+        "question": "برای ورود به دنیای End در ماینکرفت به چه چیزی نیاز است؟",
+        "options": [
+            "Eye of Ender",
+            "Diamond",
+            "Emerald",
+            "Nether Star"
+        ],
+        "answer": 0,
+        "category": "بازی",
+        "difficulty": "medium"
+    },
+    {
+        "question": "طولانی‌ترین سوره قرآن کدام است؟",
+        "options": ["آل عمران", "نساء", "بقره", "مائده"],
+        "answer": 2,
+        "category": "مذهبی",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام کشور به سرزمین هزار دریاچه معروف است؟",
+        "options": ["سوئد", "فنلاند", "کانادا", "نروژ"],
+        "answer": 1,
+        "category": "جغرافیا",
+        "difficulty": "hard"
+    },
+    {
+        "question": "اولین نسخه سیستم‌عامل ویندوز در چه سالی منتشر شد؟",
+        "options": ["1983", "1985", "1988", "1990"],
+        "answer": 1,
+        "category": "کامپیوتر",
+        "difficulty": "hard"
+    }
+]
+QUESTIONS += [
+    {
+        "question": "پایتخت استرالیا چیست؟",
+        "options": ["سیدنی", "ملبورن", "کانبرا", "بریزبن"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام کشور به سرزمین آفتاب تابان معروف است؟",
+        "options": ["چین", "ژاپن", "کره جنوبی", "تایلند"],
+        "answer": 1,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بزرگ‌ترین بیابان گرم جهان چیست؟",
+        "options": ["گبی", "کالاهاری", "صحرای آفریقا", "آتاکاما"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام سیاره حلقه‌های معروف دارد؟",
+        "options": ["مریخ", "زحل", "زهره", "عطارد"],
+        "answer": 1,
+        "category": "نجوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بدن انسان چند استخوان دارد؟",
+        "options": ["۱۸۶", "۲۰۶", "۲۲۶", "۲۴۶"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام اندام خون را پمپاژ می‌کند؟",
+        "options": ["ریه", "کبد", "قلب", "کلیه"],
+        "answer": 2,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "ویتامین حاصل از نور خورشید چیست؟",
+        "options": ["A", "B", "C", "D"],
+        "answer": 3,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین رئیس‌جمهور ایران چه کسی بود؟",
+        "options": ["ابوالحسن بنی‌صدر", "محمدعلی رجایی", "اکبر هاشمی", "محمد خاتمی"],
+        "answer": 0,
+        "category": "تاریخ",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام تمدن اهرام مصر را ساخت؟",
+        "options": ["رومیان", "مصریان باستان", "یونانیان", "بابلیان"],
+        "answer": 1,
+        "category": "تاریخ",
+        "difficulty": "easy"
+    },
+    {
+        "question": "المپیک هر چند سال یک‌بار برگزار می‌شود؟",
+        "options": ["۲", "۳", "۴", "۵"],
+        "answer": 2,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "در بسکتبال هر تیم چند بازیکن داخل زمین دارد؟",
+        "options": ["۴", "۵", "۶", "۷"],
+        "answer": 1,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام کشور میزبان جام جهانی ۲۰۲۲ بود؟",
+        "options": ["قطر", "روسیه", "برزیل", "آلمان"],
+        "answer": 0,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین سوره قرآن چیست؟",
+        "options": ["بقره", "فاتحه", "ناس", "اخلاص"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "تعداد سوره‌های قرآن چند تا است؟",
+        "options": ["۱۱۰", "۱۱۲", "۱۱۴", "۱۲۰"],
+        "answer": 2,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین ماه قمری چیست؟",
+        "options": ["رمضان", "محرم", "صفر", "رجب"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "HTML مخفف چیست؟",
+        "options": [
+            "Hyper Text Markup Language",
+            "High Text Machine Language",
+            "Hyper Tool Markup Language",
+            "Home Text Markup Language"
+        ],
+        "answer": 0,
+        "category": "کامپیوتر",
+        "difficulty": "medium"
+    },
+    {
+        "question": "مخفف RAM چیست؟",
+        "options": [
+            "Random Access Memory",
+            "Read Access Memory",
+            "Rapid Access Machine",
+            "Random Active Module"
+        ],
+        "answer": 0,
+        "category": "کامپیوتر",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام شرکت اندروید را توسعه می‌دهد؟",
+        "options": ["اپل", "گوگل", "مایکروسافت", "سامسونگ"],
+        "answer": 1,
+        "category": "کامپیوتر",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام ابزار برای استخراج الماس در ماینکرفت لازم است؟",
+        "options": ["بیل چوبی", "کلنگ سنگی", "کلنگ آهنی", "تبر"],
+        "answer": 2,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "ندر دراگون در کدام دنیا قرار دارد؟",
+        "options": ["Overworld", "Nether", "The End", "Deep Dark"],
+        "answer": 2,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام موجود در ماینکرفت ترید انجام می‌دهد؟",
+        "options": ["زامبی", "ویلیجر", "کریپر", "اسکلت"],
+        "answer": 1,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "پرچم ژاپن چه رنگ‌هایی دارد؟",
+        "options": ["قرمز و سفید", "آبی و سفید", "سبز و سفید", "قرمز و مشکی"],
+        "answer": 0,
+        "category": "عمومی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین روز هفته در ایران چیست؟",
+        "options": ["شنبه", "یکشنبه", "جمعه", "دوشنبه"],
+        "answer": 0,
+        "category": "عمومی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام حیوان به کشتی صحرا معروف است؟",
+        "options": ["اسب", "شتر", "فیل", "گاو"],
+        "answer": 1,
+        "category": "عمومی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بزرگ‌ترین عضو بدن انسان چیست؟",
+        "options": ["قلب", "پوست", "کبد", "ریه"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام فلز مایع است؟",
+        "options": ["جیوه", "آهن", "طلا", "مس"],
+        "answer": 0,
+        "category": "علوم",
+        "difficulty": "medium"
+    },
+    {
+        "question": "واحد اندازه‌گیری جریان الکتریکی چیست؟",
+        "options": ["ولت", "وات", "آمپر", "اهم"],
+        "answer": 2,
+        "category": "علوم",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام حیوان سریع‌ترین پرنده جهان است؟",
+        "options": ["شاهین", "عقاب", "جغد", "کبوتر"],
+        "answer": 0,
+        "category": "حیات وحش",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام درخت میوه بلوط تولید می‌کند؟",
+        "options": ["بلوط", "کاج", "چنار", "سپیدار"],
+        "answer": 0,
+        "category": "طبیعت",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بزرگ‌ترین اقیانوس پس از آرام کدام است؟",
+        "options": ["هند", "اطلس", "منجمد شمالی", "منجمد جنوبی"],
+        "answer": 1,
+        "category": "جغرافیا",
+        "difficulty": "medium"
+    }
+]
+QUESTIONS += [
 
+    {
+        "question": "طولانی‌ترین رود جهان کدام است؟",
+        "options": ["نیل", "آمازون", "ولگا", "دانوب"],
+        "answer": 0,
+        "category": "جغرافیا",
+        "difficulty": "medium"
+    },
+    {
+        "question": "پایتخت کانادا چیست؟",
+        "options": ["تورنتو", "ونکوور", "اتاوا", "مونترال"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "بزرگ‌ترین کشور جهان از نظر مساحت کدام است؟",
+        "options": ["کانادا", "چین", "روسیه", "آمریکا"],
+        "answer": 2,
+        "category": "جغرافیا",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین سیاره منظومه شمسی چیست؟",
+        "options": ["زمین", "زهره", "عطارد", "مریخ"],
+        "answer": 2,
+        "category": "نجوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "نور خورشید تقریباً چند دقیقه طول می‌کشد تا به زمین برسد؟",
+        "options": ["۸ دقیقه", "۱ دقیقه", "۳۰ دقیقه", "۱۵ دقیقه"],
+        "answer": 0,
+        "category": "علوم",
+        "difficulty": "medium"
+    },
+    {
+        "question": "سخت‌ترین ماده طبیعی چیست؟",
+        "options": ["آهن", "الماس", "طلا", "نقره"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "عدد اتمی اکسیژن چند است؟",
+        "options": ["۶", "۷", "۸", "۹"],
+        "answer": 2,
+        "category": "علوم",
+        "difficulty": "medium"
+    },
+    {
+        "question": "کدام گاز بیشترین درصد جو زمین را تشکیل می‌دهد؟",
+        "options": ["اکسیژن", "نیتروژن", "دی‌اکسید کربن", "هیدروژن"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام دانشمند قانون جاذبه را مطرح کرد؟",
+        "options": ["گالیله", "نیوتن", "انیشتین", "ادیسون"],
+        "answer": 1,
+        "category": "علوم",
+        "difficulty": "easy"
+    },
+    {
+        "question": "سرعت تقریبی نور چقدر است؟",
+        "options": ["۳۰۰ هزار کیلومتر بر ثانیه", "۳۰ هزار", "۳ هزار", "۳ میلیون"],
+        "answer": 0,
+        "category": "علوم",
+        "difficulty": "hard"
+    },
+    {
+        "question": "کدام کشور بیشترین قهرمانی جام جهانی فوتبال را دارد؟",
+        "options": ["آلمان", "آرژانتین", "ایتالیا", "برزیل"],
+        "answer": 3,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "در والیبال هر تیم چند بازیکن داخل زمین دارد؟",
+        "options": ["۵", "۶", "۷", "۸"],
+        "answer": 1,
+        "category": "ورزش",
+        "difficulty": "easy"
+    },
+    {
+        "question": "لقب لیونل مسی چیست؟",
+        "options": ["ال‌ماتادور", "کینگ", "کک", "ال‌پولگا"],
+        "answer": 3,
+        "category": "ورزش",
+        "difficulty": "medium"
+    },
+    {
+        "question": "اولین خلیفه مسلمانان چه کسی بود؟",
+        "options": ["عمر", "ابوبکر", "عثمان", "علی"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "medium"
+    },
+    {
+        "question": "ماه رمضان چندمین ماه قمری است؟",
+        "options": ["هشتم", "نهم", "دهم", "یازدهم"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "قبله مسلمانان کجاست؟",
+        "options": ["مسجدالنبی", "کعبه", "بیت‌المقدس", "مسجد کوفه"],
+        "answer": 1,
+        "category": "مذهبی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "سازنده سیستم‌عامل ویندوز کدام شرکت است؟",
+        "options": ["گوگل", "اپل", "مایکروسافت", "سامسونگ"],
+        "answer": 2,
+        "category": "کامپیوتر",
+        "difficulty": "easy"
+    },
+    {
+        "question": "PNG چه نوع فرمتی است؟",
+        "options": ["ویدئو", "تصویر", "صدا", "متن"],
+        "answer": 1,
+        "category": "کامپیوتر",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام کلید برای کپی در ویندوز استفاده می‌شود؟",
+        "options": ["Ctrl+V", "Ctrl+X", "Ctrl+C", "Ctrl+Z"],
+        "answer": 2,
+        "category": "کامپیوتر",
+        "difficulty": "easy"
+    },
+    {
+        "question": "اولین نسخه Minecraft در چه سالی منتشر شد؟",
+        "options": ["2009", "2010", "2011", "2012"],
+        "answer": 0,
+        "category": "بازی",
+        "difficulty": "medium"
+    },
+    {
+        "question": "برای ساخت آبسیدین به چه چیزی نیاز است؟",
+        "options": ["آب و گدازه", "شن", "چوب", "برف"],
+        "answer": 0,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام موجود در ماینکرفت End را محافظت می‌کند؟",
+        "options": ["Wither", "Ender Dragon", "Warden", "Ghast"],
+        "answer": 1,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "پرطرفدارترین رنگ زمرد در ماینکرفت چیست؟",
+        "options": ["آبی", "سبز", "قرمز", "بنفش"],
+        "answer": 1,
+        "category": "بازی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام حیوان تخم می‌گذارد؟",
+        "options": ["گاو", "مرغ", "گوسفند", "اسب"],
+        "answer": 1,
+        "category": "عمومی",
+        "difficulty": "easy"
+    },
+    {
+        "question": "کدام فلز به آهن‌ربا جذب می‌شود؟",
+        "options": ["طلا", "نقره", "آهن", "آلومینیوم"],
+        "answer": 2,
+        "category": "عمومی",
+        "difficulty": "easy"
+    }
+
+]
 # ========== لیست کلمات فحاشی (خالی - خودت پر کن) ==========
 BAD_WORDS = [
     "کون",
@@ -702,6 +1431,28 @@ async def cmds_handler(bot: Robot, message: Message):
 async def cmds_handler(bot: Robot, message: Message):
     await message.reply(help)
     
+@bot.on_message()
+async def quiz_handler(bot, message):
+    if message.chat_id not in ACTIVE_GROUPS:
+        return
+
+    if not message.text:
+        return
+
+    if message.text.strip() != "کوییز":
+        return
+
+    q = random.choice(QUESTIONS)
+
+    await message.reply_poll(
+        question=q["question"],
+        options=q["options"],
+        type="Quiz",
+        correct_option_index=q["answer"],
+        is_anonymous=False,
+        allows_multiple_answers=False,
+        show_results=True
+    )
 @bot.on_message()    
 async def message_handler(bot: Robot, message: Message):
     """مدیریت پیام‌ها"""
