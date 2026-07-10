@@ -1,4 +1,4 @@
-import re
+import re, os
 import requests
 import datetime
 import random
@@ -6,7 +6,7 @@ import jdatetime
 from rubka import Robot
 from rubka.context import Message
 
-TOKEN = "IAJCH0LOGXHYYYLHGGHOKTJQBVJCFPJBDCNZYTBAWYXKTFXWHBTYWTJPAVXDYFRW"
+TOKEN = os.getenv("BOT_TOKEN")
 
 # ========== ایجاد ربات ==========
 bot = Robot(token=TOKEN)
