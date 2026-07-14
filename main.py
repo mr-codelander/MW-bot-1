@@ -1667,7 +1667,6 @@ async def start_handler(bot: Robot, message: Message):
         await message.reply(JOIN_CONFIRM)
     else:
         ACTIVE_GROUPS[chat_id] = True
-        save_active_groups(ACTIVE_GROUPS)
         await message.reply(WELCOME_MESSAGE)
     
 @bot.on_message(commands=["cmds"])
